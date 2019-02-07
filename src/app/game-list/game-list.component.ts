@@ -14,10 +14,12 @@ export class GameListComponent implements OnInit {
 
   constructor(private service: GameService) { }
 
+  // code this function for the demo
   purchase(game: any): void {
     this.service.purchase(game).subscribe(data => {
       console.log(data);
       this.updateQuantity(game);
+      alert('Your game is being shipped!');
     }, error => {
       console.log(error);
       alert('Sorry, ' + game.title + ' is not available for purchase!');
@@ -40,7 +42,6 @@ export class GameListComponent implements OnInit {
     this.games = new Array();
     this.service.findAll().subscribe(data => {
       this.groupGamesByThree(data);
-      console.log(this.games);
     });
   }
 
@@ -48,7 +49,6 @@ export class GameListComponent implements OnInit {
     this.games.forEach(element => {
       element.items.forEach(g => {
         if (game === g) {
-          console.log(g);
           game.quantity = game.quantity - 1;
           g = game;
         }
