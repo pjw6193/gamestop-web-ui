@@ -8,14 +8,16 @@ import { Observable } from 'rxjs';
 })
 export class GameService {
 
+  API = 'http://localhost:9595/games';
+
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<any> {
-    return this.http.get('http://localhost:9595/games/all');
+    return this.http.get(this.API + '/all');
   }
 
   purchase(game: any): Observable<any> {
-    return this.http.post('http://localhost:9595/games/purchase', game);
+    return this.http.post(this.API + '/purchase', game);
   }
 
 }

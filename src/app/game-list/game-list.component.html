@@ -13,10 +13,8 @@
         <h1 class="card-title pricing-card-title">{{ game.price | currency }}</h1>
           <h4 *ngIf="!isAvailableToday(game)" class="text-muted"><em>Available {{ game.dateAvailable | date: 'MM-dd-yyyy' }}</em></h4>  
           <h4 class="text-muted">{{ game.genre }}</h4>
-          <h5 class="warning" *ngIf="game.quantity <= 5">{{ game.quantity }} copies left!</h5>
+          <h5 class="warning" *ngIf="game.quantity <= 5 && isAvailableToday(game)">{{ game.quantity }} copies left!</h5>
           <button (click)="purchase(game)" [disabled]="!isAvailableQuantity(game) || !isAvailableToday(game)" type="button" class="btn btn-lg btn-block btn-primary mt-auto">Purchase</button>
       </div>
   </div>
 </div>
-  
-  

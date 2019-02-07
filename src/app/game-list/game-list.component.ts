@@ -17,7 +17,7 @@ export class GameListComponent implements OnInit {
   purchase(game: any): void {
     this.service.purchase(game).subscribe(data => {
       console.log(data);
-      alert('Your ' + game.title + ' game is on the way!');
+      this.updateQuantity(game);
     }, error => {
       console.log(error);
       alert('Sorry, ' + game.title + ' is not available for purchase!');
@@ -39,11 +39,26 @@ export class GameListComponent implements OnInit {
   load(): void {
     this.games = new Array();
     this.service.findAll().subscribe(data => {
-      for (let i = 0; i < data.length; i += 3) {
-        this.games.push({ items: data.slice(i, i + 3) });
-      }
+      this.groupGamesByThree(data);
       console.log(this.games);
     });
   }
 
+  updateQuantity(game: Game): void {
+    this.games.forEach(element => {
+      element.items.forEach(g => {
+        if (game === g) {
+          console.log(g);
+          game.quantity = game.quantity - 1;
+          g = game;
+        }
+      });
+    });
+  }
+
+  groupGamesByThree(data: Array<any>): void {
+    for (let i = 0; i < data.length; i += 3) {
+      this.games.push({ items: data.slice(i, i + 3) });
+    }
+  }
 }
