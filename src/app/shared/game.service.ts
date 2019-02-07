@@ -16,8 +16,4 @@ export class GameService {
     return this.http.get(this.API + '/all');
   }
 
-  purchase(game: any): Observable<any> {
-    return this.http.post(this.API + '/purchase', game);
-  }
-
 }

@@ -14,16 +14,6 @@ export class GameListComponent implements OnInit {
 
   constructor(private service: GameService) { }
 
-  purchase(game: any): void {
-    this.service.purchase(game).subscribe(data => {
-      console.log(data);
-      this.updateQuantity(game);
-    }, error => {
-      console.log(error);
-      alert('Sorry, ' + game.title + ' is not available for purchase!');
-    });
-  }
-
   isAvailableToday(game: any): boolean {
     return (new Date(game.dateAvailable) < new Date());
   }
